@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.Drive;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -26,7 +25,7 @@ public class Robot extends TimedRobot {
     public final TalonSRX mMotor2BackRight = new TalonSRX(1);
     public final TalonSRX mMotor3FrontLeft = new TalonSRX(4);
     public final TalonSRX mMotor4BackLeft = new TalonSRX(2);
-
+    
     double rightDemand;
     double leftDemand;
     double turn;
@@ -50,7 +49,7 @@ public class Robot extends TimedRobot {
     mMotor1FrontRight.set(ControlMode.PercentOutput, 0);
     mMotor2BackRight.set(ControlMode.PercentOutput, 0);
     mMotor3FrontLeft.set(ControlMode.PercentOutput, 0);
-    mMotor4BackLeft.set(ControlMode.PercentOutput, 0);
+    mMotor4BackLeft.set(ControlMode.PercentOutput, 0);    
   }
 
   /**
@@ -106,7 +105,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     rightDemand = control.getRawAxis(3);
-    leftDemand = control.getRawAxis(2);       
+    leftDemand = control.getRawAxis(2);
     turn = control.getRawAxis(0);
     quickTurn = control.getRawAxis(4);
 
