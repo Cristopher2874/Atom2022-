@@ -5,61 +5,96 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Drive extends SubsystemBase {
+  //Hardware ----------------------------------------------------------------->
   public final TalonSRX mMotor1FrontRight = new TalonSRX(6);
   public final TalonSRX mMotor2BackRight = new TalonSRX(1);
   public final TalonSRX mMotor3FrontLeft = new TalonSRX(4);
   public final TalonSRX mMotor4BackLeft = new TalonSRX(2);
+
+  //INPUTS ------------------------------------------------------------------>
+  double xSpeed = 0;
+  double ySpeed = 0;
+  double leftAbsDemand = 0;
+  double rightAbsDemand = 0;
   
-  double throttle;
-  double turn;
+  //OUTPUTS ----------------------------------------------------------------->
+  double final_left_front_demand = 0;
+  double final_right_front_demand = 0;
+  double final_left_back_demand = 0;
+  double final_right_back_demand = 0;
+    
+  //Logic ----------------------------------------------------------------->
+  boolean rampActive = true;
   double leftPwm = 0;
   double rightPwm = 0;
-  double leftTrigger = 0;
-  double rightTrigger =0;
-  boolean rampActive = true;
-  double quickmove = 0;
+  double absMove = 0;
   
-  private final XboxController control = new XboxController(0);
+  //Controlers -------------------------------------------------------------->
+  public final XboxController control = new XboxController(0);
 
-  public Drive() {}
+  public Drive() {} //constructor del subsistema
 
-  public void mainDrive(){
-    throttle = control.getRawAxis(1);
-    turn = control.getRawAxis(4);
-    rightTrigger = control.getRawAxis(3);
-    leftTrigger = control.getRawAxis(2);
-    quickmove = rightTrigger - leftTrigger;
+  //------------------// Funciones del subsistema //-------------------------------//
 
-    quickmove = Math.abs(quickmove) < 0.15 ? 0 : rightTrigger - leftTrigger;
-    rightTrigger = Math.abs(rightTrigger) < 0.15 ? 0 : control.getRawAxis(3);
-    leftTrigger = Math.abs(leftTrigger) < 0.15 ? 0 : control.getRawAxis(2);
-    turn = Math.abs(turn) < 0.15 ? 0 : control.getRawAxis(4);
-    throttle = Math.abs(throttle) < 0.15 ? 0 : control.getRawAxis(1);
+  //funcion principal de Drive con argumentos de entrada de controles
+  public void mainDrive(double xInSpeed, double yInSpeed, double inForwardSpeed, double inBackwardSpeed){
+    xSpeed = xInSpeed;
+    ySpeed = yInSpeed;
+    rightAbsDemand = inForwardSpeed;
+    leftAbsDemand = inBackwardSpeed;
+    absMove = (rightAbsDemand - leftAbsDemand)*Constants.kDriveSensitivity; //valor de absMove con sensibilidad del control
 
-    if(throttle>=0){
-      leftPwm = (throttle) - turn;
-      rightPwm = (throttle) + turn;
+    absMove = Math.abs(absMove) < 0.15 ? 0 : rightAbsDemand - leftAbsDemand; //mapeo de variables
+    rightAbsDemand = Math.abs(rightAbsDemand) < 0.15 ? 0 : inForwardSpeed;
+    leftAbsDemand = Math.abs(leftAbsDemand) < 0.15 ? 0 : inBackwardSpeed;
+    ySpeed = Math.abs(ySpeed) < 0.15 ? 0 : yInSpeed;
+    xSpeed = Math.abs(xSpeed) < 0.15 ? 0 : xInSpeed;
+    
+    xSpeed = -xSpeed; //inversion del stick izquierdo
+
+    if(xSpeed>=0){
+      leftPwm = ((xSpeed) - ySpeed)*Constants.kDriveSensitivity; //sensibilidad del control agregada
+      rightPwm = ((xSpeed) + ySpeed)*Constants.kDriveSensitivity;
     }
     else{
-      leftPwm = (throttle) + turn;
-      rightPwm = (throttle) - turn;
+      leftPwm = ((xSpeed) + ySpeed)*Constants.kDriveSensitivity;
+      rightPwm = ((xSpeed) - ySpeed)*Constants.kDriveSensitivity;
     }
 
-    if((leftTrigger != 0) || (rightTrigger != 0)){
-      mMotor1FrontRight.set(ControlMode.PercentOutput, quickmove);
-      mMotor2BackRight.set(ControlMode.PercentOutput, quickmove);
-      mMotor3FrontLeft.set(ControlMode.PercentOutput, quickmove);
-      mMotor4BackLeft.set(ControlMode.PercentOutput, quickmove);
+    if((leftAbsDemand != 0) || (rightAbsDemand != 0)){ //funcion que implementa la rampa
+      final_right_front_demand = speedTramp(absMove, final_right_front_demand);
+      final_right_back_demand = speedTramp(absMove, final_right_back_demand);
+      final_left_front_demand = speedTramp(-absMove, final_left_front_demand);
+      final_left_back_demand = speedTramp(-absMove, final_left_back_demand);     
     }
     else{
-      mMotor1FrontRight.set(ControlMode.PercentOutput, rightPwm);
-      mMotor2BackRight.set(ControlMode.PercentOutput, rightPwm);
-      mMotor3FrontLeft.set(ControlMode.PercentOutput, -leftPwm);
-      mMotor4BackLeft.set(ControlMode.PercentOutput, -leftPwm); 
+      final_right_front_demand = speedTramp(rightPwm, final_right_front_demand);
+      final_right_back_demand = speedTramp(rightPwm, final_right_back_demand);
+      final_left_front_demand = speedTramp(-leftPwm, final_left_front_demand);
+      final_left_back_demand = speedTramp(-leftPwm, final_left_back_demand);
     }
+
+    outMotores(); //llamado de la funcion de salida de motores
   }
+
+  //Funcion que le da salida de motores
+  private void outMotores(){
+    mMotor1FrontRight.set(ControlMode.PercentOutput, final_right_front_demand);
+    mMotor2BackRight.set(ControlMode.PercentOutput, final_right_back_demand);
+    mMotor3FrontLeft.set(ControlMode.PercentOutput, final_left_front_demand);
+    mMotor4BackLeft.set(ControlMode.PercentOutput, final_left_back_demand);
+  }
+
+  //Funcion para la rampa de velocidad que toma argumentos de velocidad actual y la velocidad que da el control
+  private double speedTramp( double targetSpeed, double currentSpeed ){
+    if( Math.abs( (Math.abs(targetSpeed) - Math.abs(currentSpeed) ) ) < Constants.kDriveRampDeltaSpeed) return targetSpeed;
+    if( currentSpeed < targetSpeed ) return currentSpeed + Constants.kDriveRampDeltaSpeed;
+    else if( currentSpeed > targetSpeed ) return currentSpeed - Constants.kDriveRampDeltaSpeed;
+    return 0;
+  } 
 
   @Override
   public void periodic() {

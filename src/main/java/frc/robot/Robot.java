@@ -90,7 +90,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    mDrive.mainDrive();     
+    mDrive.mainDrive( mDrive.control.getRawAxis(1), mDrive.control.getRawAxis(4), mDrive.control.getRawAxis(3), mDrive.control.getRawAxis(2) );     
   }
 
   @Override
