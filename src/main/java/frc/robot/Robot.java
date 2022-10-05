@@ -25,22 +25,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-    /*public final TalonSRX mMotor1FrontRight = new TalonSRX(6);
-    public final TalonSRX mMotor2BackRight = new TalonSRX(1);
-    public final TalonSRX mMotor3FrontLeft = new TalonSRX(4);
-    public final TalonSRX mMotor4BackLeft = new TalonSRX(2);*/
     Drive mDrive = new Drive();
-    //Intake mIntake = new Intake();
-    /*double rightDemand;
-    double leftDemand;|
-    double turn;
-    double quickTurn;
-    double throttle;
-    double leftPwm = 0;
-    double rightPwm = 0;
-    boolean rampActive = true;
-    
-    private final XboxController control = new XboxController(0);*/
 
   /**
    * This function is run when the robot is first started up and should be used for any
