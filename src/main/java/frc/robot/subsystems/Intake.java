@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+/*package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -6,26 +6,23 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Drive extends SubsystemBase {
-  public final TalonSRX mMotor1FrontRight = new TalonSRX(6);
-  public final TalonSRX mMotor2BackRight = new TalonSRX(1);
-  public final TalonSRX mMotor3FrontLeft = new TalonSRX(4);
-  public final TalonSRX mMotor4BackLeft = new TalonSRX(2);
-  
-  double throttle;
-  double turn;
-  double leftPwm = 0;
-  double rightPwm = 0;
-  double leftTrigger = 0;
-  double rightTrigger =0;
-  boolean rampActive = true;
-  double quickmove = 0;
-  
-  private final XboxController control = new XboxController(0);
+public class Intake extends SubsystemBase {
+    private final Solenoid piston1 = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
+    private final Solenoid piston2 = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
+    
+    private final XboxController control2 = new XboxController(1);
 
-  public Drive() {}
+    private CANSparkMax motor1 = new CANSparkMax(1, MotorType.kBrushless);
+    private CANSparkMax motor2 = new CANSparkMax(2, MotorType.kBrushless);
+    private CANSparkMax motor3 = new CANSparkMax(3, MotorType.kBrushless);
 
-  public void mainDrive(){
+    double velMotor1 = 0;
+    double velMotor2 = 0;
+    double velMotor3 = 0;
+
+  public Intake() {}
+
+  public void mainIntake(){
     throttle = control.getRawAxis(1);
     turn = control.getRawAxis(4);
     rightTrigger = control.getRawAxis(3);
@@ -70,4 +67,4 @@ public class Drive extends SubsystemBase {
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
-}
+}*/
