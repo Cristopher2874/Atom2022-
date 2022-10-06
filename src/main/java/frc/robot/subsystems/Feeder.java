@@ -1,11 +1,8 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.RelativeEncoder;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class Feeder extends SubsystemBase {
   //Hardware ----------------------------------------------------------------->
@@ -19,7 +16,7 @@ public class Feeder extends SubsystemBase {
     
   //Logic ----------------------------------------------------------------->
   /*Otras variables*/
-  
+  //private final RelativeEncoder mTopFeederEncoder = mRightHangerMotor.getEncoder(), mBaseFeEncoder=0;
   //Controlers -------------------------------------------------------------->
   /*Declaracion del control*/
 
@@ -31,6 +28,9 @@ public class Feeder extends SubsystemBase {
   
   public void feederAction(){/*codigo que mandas llamar en el robot*/}
   
+  //Funcion para poner salidas a SmartDashBoard 
+public void FeederLogsOutput(){/*codigo para dar salidas a SmartDashBoard*/}
+    
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
