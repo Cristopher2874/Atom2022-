@@ -1,44 +1,41 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.XboxController;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Hopper extends SubsystemBase {
   //Hardware ----------------------------------------------------------------->
-  /*Declarar motores, sensores, etc.*/
-  private CANSparkMax motor1H = new CANSparkMax(1, MotorType.kBrushless);
+  private CANSparkMax hopperMotor = new CANSparkMax(Constants.kHopperId, MotorType.kBrushless);
+  private RelativeEncoder relativeHopperEncoder; //declaracion del encoder para saber la posicion del motor
 
-  //INPUTS ------------------------------------------------------------------>
-  /*Leer las entradas de controles*/
-  double leftTrigger;
-  double rightTrigger;
-  // los triggers necesitan de getTrigger
   //OUTPUTS ----------------------------------------------------------------->
   /*Varibales para la salida a motores o SmartDashBoard*/
   double hopperSpeed = 0;
-  
+  private double hopperPosition = 0; //para leer el encoder
     
-  //Logic ----------------------------------------------------------------->
-  /*Otras variables*/
-  //private final RelativeEncoder mTopFeederEncoder = mRightHangerMotor.getEncoder(), mBaseFeEncoder=0;
-  //Controlers -------------------------------------------------------------->
-  /*Declaracion del control*/
-  private final XboxController OpController = new XboxController(0);
-
-  public Hopper() {}  //constructor del subsistema
+  public Hopper() {
+    hopperMotor.enableSoftLimit(SoftLimitDirection.kForward, true); //declaracion del limite para el hopper
+    hopperMotor.setSoftLimit(SoftLimitDirection.kForward, (float) Constants.kHopperHighPosition); // Ymax
+    hopperMotor.enableSoftLimit(SoftLimitDirection.kReverse, true); //limite inferior
+    hopperMotor.setSoftLimit(SoftLimitDirection.kReverse, (float) Constants.kHopperLowPosition); //Ymin
+    
+    relativeHopperEncoder = hopperMotor.getEncoder(); //llamada del encoder del NEO
+    
+    hopperPosition = relativeHopperEncoder.getPosition(); //entrada de la posicion del motor
+  }  //constructor del subsistema
 
   //------------------// Funciones del subsistema //-------------------------------//
 
   //funcion principal para cada subsistema
   
-  public void feederAction(double inLeftTrigger, double inRightTrigger){
-    hopperSpeed = inRightTrigger - inLeftTrigger;
-    motor1H.set(hopperSpeed);
+  public void hopperAction(double inHopperSpeed){ //agregar los limites de arriba y abajo
+    hopperSpeed = inHopperSpeed;
+    hopperMotor.set(hopperSpeed);
   }
-  
   //Funcion para poner salidas a SmartDashBoard 
 public void FeederLogsOutput(){/*codigo para dar salidas a SmartDashBoard*/}
     

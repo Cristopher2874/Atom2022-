@@ -7,8 +7,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.controlboard.ControlBoard;
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Feeder;
-//import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LogsOutput;
 
 public class Robot extends TimedRobot {
@@ -17,7 +15,7 @@ public class Robot extends TimedRobot {
   //private RobotContainer m_robotContainer;
     Drive mDrive = new Drive();
     LogsOutput mLogsOutput = new LogsOutput();
-    Feeder mFeeder = new Feeder();    
+     
     
   //Delcaracion del compresor      
     private final Compressor mCompressor = new Compressor(PneumaticsModuleType.CTREPCM);
@@ -51,7 +49,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    mLogsOutput.MasterLosgsOutputs();
+    
   }
 
   @Override
@@ -63,8 +61,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    mLogsOutput.MasterLosgsOutputs();
-    mDrive.mainDrive( ControlBoard.getInstance().getVelocityX(), ControlBoard.getInstance().getVelocityY(), ControlBoard.getInstance().getDirectThrottle() );     
+    mDrive.mainDrive( ControlBoard.getInstance().getVelocityY(), ControlBoard.getInstance().getTurn(), 
+      ControlBoard.getInstance().getDirectThrottle() );
   }
 
   @Override
