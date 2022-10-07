@@ -1,56 +1,31 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
   //Hardware ----------------------------------------------------------------->
-  private final DoubleSolenoid pistonTest = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 
-    Constants.kIntakeSolenoid1, Constants.kIntakeSolenoid2);
-  private CANSparkMax intakeMotor = new CANSparkMax(Constants.kIntakeId, MotorType.kBrushless);
+  /*Declarar motores, sensores, etc.*/
 
   //INPUTS ------------------------------------------------------------------>
-  boolean intakeForward = false; 
-  boolean intakeReverse = false; 
-
+  /*Leer las entradas de controles*/
+  
   //OUTPUTS ----------------------------------------------------------------->
-   
+  /*Varibales para la salida a motores o SmartDashBoard*/
+    
+  //Logic ----------------------------------------------------------------->
+  /*Otras variables*/
+  
+  //Controlers -------------------------------------------------------------->
+  /*Declaracion del control*/
+
   public Intake() {} //constructor del subsistema
 
   //------------------// Funciones del subsistema //-------------------------------//
 
-  //comer pelotas
-  public void takeIn(boolean inTakeIn){
-      intakeForward = inTakeIn;
-      if (intakeForward){
-      pistonTest.set(Value.kForward); //el double solenoid
-      intakeMotor.set(Constants.kIntakeDemand);
-      }
-      else{
-        pistonTest.set(Value.kReverse);
-        intakeMotor.set(0);
-      }
-  }
-
-  //sacar pelotas
-  public void takePut(boolean inTakeOut){
-      intakeReverse = inTakeOut;
-      if (intakeForward){
-        pistonTest.set(Value.kForward); //el double solenoid
-        intakeMotor.set(-Constants.kIntakeDemand);
-      }
-      else{
-        pistonTest.set(Value.kReverse);
-        intakeMotor.set(0);
-      }
-    }
-
+  //funcion principal para cada subsistema
+  
+  public void feederAction(){/*codigo que mandas llamar en el robot*/}
+  
   //Funcion para poner salidas a SmartDashBoard 
   public void IntakeLogsOutput(){/*codigo para dar salidas a SmartDashBoard*/}
     

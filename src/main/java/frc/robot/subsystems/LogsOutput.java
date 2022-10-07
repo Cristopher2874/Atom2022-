@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LogsOutput extends SubsystemBase {
   Drive mDrive = new Drive(); //declarar cada subsistema para usar funciones
-  Example mExample = new Example();
+  Feeder mFeeder = new Feeder();
   
   public LogsOutput() {} //constructor del subsistema
 
@@ -14,7 +14,7 @@ public class LogsOutput extends SubsystemBase {
   
   public void MasterLosgsOutputs(){
     mDrive.DriveLogsOutput(); //Llamar las funciones de output de cada subsistema
-    mExample.ExampleLogsOutput();
+    mFeeder.FeederLogsOutput();
   }
     
   @Override

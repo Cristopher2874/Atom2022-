@@ -1,8 +1,10 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Hanger extends SubsystemBase {
+public class Feeder extends SubsystemBase {
   //Hardware ----------------------------------------------------------------->
   /*Declarar motores, sensores, etc.*/
 
@@ -18,7 +20,7 @@ public class Hanger extends SubsystemBase {
   //Controlers -------------------------------------------------------------->
   /*Declaracion del control*/
 
-  public Hanger() {} //constructor del subsistema
+  public Feeder() {} //constructor del subsistema
 
   //------------------// Funciones del subsistema //-------------------------------//
 
