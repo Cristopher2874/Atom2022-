@@ -36,8 +36,8 @@ public class OperatorControlBoard implements IOperatorControlBoard {
     }
 
     @Override
-    public boolean getFeeder() {
-        return mController.getTrigger(XboxController.Side.RIGHT) > 0.5;
+    public double getHopperSpeed () {
+        return mController.getTrigger(XboxController.Side.RIGHT) - mController.getTrigger(XboxController.Side.LEFT);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class OperatorControlBoard implements IOperatorControlBoard {
     }
 
     @Override
-    public double getHoodSpeed() {
+    public double getRightYAxis() {
         return mController.getJoystick(XboxController.Side.RIGHT, XboxController.Axis.Y);
     }
 

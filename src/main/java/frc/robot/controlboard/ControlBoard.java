@@ -62,8 +62,8 @@ public class ControlBoard implements IControlBoard {
     }
 
     @Override
-    public boolean getFeeder(){
-        return mOperatorControlBoard.getFeeder();
+    public double getHopperSpeed (){
+        return mOperatorControlBoard.getHopperSpeed();
     }
 
     @Override
@@ -87,8 +87,8 @@ public class ControlBoard implements IControlBoard {
     }
 
     @Override
-    public double getHoodSpeed() {
-        return mOperatorControlBoard.getHoodSpeed();
+    public double getRightYAxis() {
+        return mOperatorControlBoard.getRightYAxis();
     }
 
     @Override

@@ -6,7 +6,7 @@ public interface IOperatorControlBoard {
     //ADD
     boolean getIntakeInverted();
 
-    boolean getFeeder();
+    double getHopperSpeed ();
     
     boolean getShooter();
 
@@ -18,7 +18,7 @@ public interface IOperatorControlBoard {
 
     boolean getHangerSequence();
 
-    double getHoodSpeed();
+    double getRightYAxis();
 
     double getTurretSpeed();
 
