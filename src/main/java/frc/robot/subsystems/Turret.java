@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Example extends SubsystemBase {
+public class Turret extends SubsystemBase {
   //Hardware ----------------------------------------------------------------->
   /*Declarar motores, sensores, etc.*/
 
@@ -18,7 +18,7 @@ public class Example extends SubsystemBase {
   //Controlers -------------------------------------------------------------->
   /*Declaracion del control*/
 
-  public Example() {} //constructor del subsistema
+  public Turret() {} //constructor del subsistema
 
   //------------------// Funciones del subsistema //-------------------------------//
 
@@ -27,7 +27,7 @@ public class Example extends SubsystemBase {
   public void feederAction(){/*codigo que mandas llamar en el robot*/}
   
   //Funcion para poner salidas a SmartDashBoard 
-public void ExampleLogsOutput(){/*codigo para dar salidas a SmartDashBoard*/}
+public void FeederLogsOutput(){/*codigo para dar salidas a SmartDashBoard*/}
     
   @Override
   public void periodic() {

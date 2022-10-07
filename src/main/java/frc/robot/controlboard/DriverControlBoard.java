@@ -37,7 +37,7 @@ public class DriverControlBoard implements IDriverControlBoard {
 
     @Override
     public double getTurn() {
-        return -mController.getJoystick(XboxController.Side.RIGHT, XboxController.Axis.X);
+        return mController.getJoystick(XboxController.Side.RIGHT, XboxController.Axis.X);
     }
 
     @Override
