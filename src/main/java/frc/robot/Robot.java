@@ -22,7 +22,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    //m_robotContainer = new RobotContainer();  
     mCompressor.enableDigital(); //habilita el compresor 
     mLogsOutput.MasterLosgsOutputs(); //Manda llmar la funcion de Logs
   }

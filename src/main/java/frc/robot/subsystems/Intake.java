@@ -19,15 +19,6 @@ public class Intake extends SubsystemBase {
   boolean intakeForward = false; 
   boolean intakeReverse = false;
   
-  //OUTPUTS ----------------------------------------------------------------->
-  /*Varibales para la salida a motores o SmartDashBoard*/
-    
-  //Logic ----------------------------------------------------------------->
-  /*Otras variables*/
-  
-  //Controlers -------------------------------------------------------------->
-  /*Declaracion del control*/
-
   public Intake() {} //constructor del subsistema
 
   //------------------// Funciones del subsistema //-------------------------------//

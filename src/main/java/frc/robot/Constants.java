@@ -22,6 +22,6 @@ public final class Constants {
 
     //Hopper
     public static final int kHopperId = 2;
-    public static final double kHopperHighPosition = 100;
-    public static final double kHopperLowPosition = 0;
+    public static final double kHangerHighPosition = 100;
+    public static final double kHangerLowPosition = 0;
 }
