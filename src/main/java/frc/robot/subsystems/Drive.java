@@ -48,6 +48,7 @@ public class Drive extends SubsystemBase {
       leftPwm = ((xSpeed) + ySpeed)*Constants.kDriveSensitivity;
       rightPwm = ((xSpeed) - ySpeed)*Constants.kDriveSensitivity;
     }
+    
 
     if(absMove != 0){ //funcion que implementa la rampa
       final_right_front_demand = speedTramp(absMove, final_right_front_demand);

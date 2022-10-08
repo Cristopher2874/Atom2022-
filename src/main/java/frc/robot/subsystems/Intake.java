@@ -18,20 +18,23 @@ public class Intake extends SubsystemBase {
   boolean intakeForward = false; 
   boolean intakeReverse = false;
   
-  public Intake() {} //constructor del subsistema
+  public Intake() {
+    piston1.close();
+    piston2.close();
+  } //constructor del subsistema
 
   //------------------// Funciones del subsistema //-------------------------------//
 
   public void takeIn(boolean inTakeIn){
     intakeForward = inTakeIn;
     if (intakeForward){
-    piston1.set(true);
-    piston2.set(true);
+    piston1.set(false);
+    piston2.set(false);
     intakeMotor.set(Constants.kIntakeDemand);
     }
     else{
-      piston1.set(false);
-      piston2.set(false);
+      piston1.set(true);
+      piston2.set(true);
       intakeMotor.set(0);
     }
 }
@@ -48,9 +51,8 @@ public void takeOut(boolean inTakeOut){
       piston1.set(false);
       piston2.set(false);
       intakeMotor.set(0);
-    }
+      }
   }
-  
   //Funcion para poner salidas a SmartDashBoard 
   public void IntakeLogsOutput(){/*codigo para dar salidas a SmartDashBoard*/}
     
