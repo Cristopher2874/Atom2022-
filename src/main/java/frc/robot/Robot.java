@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.controlboard.ControlBoard;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LogsOutput;
 
 public class Robot extends TimedRobot {
@@ -14,6 +15,7 @@ public class Robot extends TimedRobot {
 
   //private RobotContainer m_robotContainer;
     Drive mDrive = new Drive();
+    Intake mIntake = new Intake();
     LogsOutput mLogsOutput = new LogsOutput();
      
     
@@ -62,6 +64,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     mDrive.mainDrive( ControlBoard.getInstance().getVelocityY(), ControlBoard.getInstance().getTurn(), 
       ControlBoard.getInstance().getDirectThrottle() );
+    mIntake.takeIn( ControlBoard.getInstance().getIntake()); //boton A
+    mIntake.takeOut( ControlBoard.getInstance().getIntakeInverted()); //boton B
   }
 
   @Override

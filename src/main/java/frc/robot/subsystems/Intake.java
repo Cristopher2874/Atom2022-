@@ -3,16 +3,15 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
   //Hardware ----------------------------------------------------------------->
-  private final DoubleSolenoid pistonTest = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 
-    Constants.kIntakeSolenoid1, Constants.kIntakeSolenoid2);
+  private final Solenoid piston1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.kIntakeSolenoid1);
+  private final Solenoid piston2 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.kIntakeSolenoid2);
   private CANSparkMax intakeMotor = new CANSparkMax(Constants.kIntakeId, MotorType.kBrushless);
 
   //INPUTS ------------------------------------------------------------------>
@@ -26,24 +25,28 @@ public class Intake extends SubsystemBase {
   public void takeIn(boolean inTakeIn){
     intakeForward = inTakeIn;
     if (intakeForward){
-    pistonTest.set(Value.kForward); //el double solenoid
+    piston1.set(true);
+    piston2.set(true);
     intakeMotor.set(Constants.kIntakeDemand);
     }
     else{
-      pistonTest.set(Value.kReverse);
+      piston1.set(false);
+      piston2.set(false);
       intakeMotor.set(0);
     }
 }
 
 //sacar pelotas
-public void takePut(boolean inTakeOut){
+public void takeOut(boolean inTakeOut){
     intakeReverse = inTakeOut;
     if (intakeForward){
-      pistonTest.set(Value.kForward); //el double solenoid
+      piston1.set(true);
+      piston2.set(true);
       intakeMotor.set(-Constants.kIntakeDemand);
     }
     else{
-      pistonTest.set(Value.kReverse);
+      piston1.set(false);
+      piston2.set(false);
       intakeMotor.set(0);
     }
   }
