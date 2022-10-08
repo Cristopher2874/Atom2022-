@@ -8,8 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.controlboard.ControlBoard;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LogsOutput;
+import frc.robot.subsystems.Shooter;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -17,6 +19,8 @@ public class Robot extends TimedRobot {
   //private RobotContainer m_robotContainer;
     Drive mDrive = new Drive();
     Intake mIntake = new Intake();
+    Hopper mHopper = new Hopper();
+    Shooter mShooter = new Shooter();
     LogsOutput mLogsOutput = new LogsOutput();
      
     
@@ -64,10 +68,20 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+    //drive
     mDrive.mainDrive( ControlBoard.getInstance().getVelocityY(), ControlBoard.getInstance().getTurn(), 
       ControlBoard.getInstance().getDirectThrottle() );
+
+    //intake
     mIntake.takeIn( ControlBoard.getInstance().getIntake()); //boton A
     mIntake.takeOut( ControlBoard.getInstance().getIntakeInverted()); //boton B
+
+    //hopper
+    mHopper.hopperAction(ControlBoard.getInstance().getHopperSpeed()); //diferencia triggers
+
+    //shooter
+    mShooter.shoot(ControlBoard.getInstance().getShooter()); //boton rb
   }
 
   @Override

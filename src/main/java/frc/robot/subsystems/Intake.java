@@ -10,8 +10,8 @@ import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
   //Hardware ----------------------------------------------------------------->
-  private final Solenoid piston1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.kIntakeSolenoid1);
-  private final Solenoid piston2 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.kIntakeSolenoid2);
+  private final Solenoid piston1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.kIntakeSolenoidId1);
+  private final Solenoid piston2 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.kIntakeSolenoidId2);
   private CANSparkMax intakeMotor = new CANSparkMax(Constants.kIntakeId, MotorType.kBrushless);
 
   //INPUTS ------------------------------------------------------------------>

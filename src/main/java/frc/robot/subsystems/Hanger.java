@@ -9,7 +9,7 @@ import frc.robot.Constants;
 
 public class Hanger extends SubsystemBase {
   //Hardware ----------------------------------------------------------------->
-  private CANSparkMax hangerMotor = new CANSparkMax(5, MotorType.kBrushless);
+  private CANSparkMax hangerMotor = new CANSparkMax(Constants.kHangerId, MotorType.kBrushless);
   private RelativeEncoder relativeHopperEncoder; //declaracion del encoder para saber la posicion del motor
 
   //OUTPUTS ----------------------------------------------------------------->
