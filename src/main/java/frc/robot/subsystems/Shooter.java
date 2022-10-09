@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -10,9 +12,9 @@ import frc.robot.Constants;
 public class Shooter extends SubsystemBase{
     
     //Hardware ----------------------------------------------------------------->
-    private CANSparkMax motor1 = new CANSparkMax(Constants.kShooter1Id, MotorType.kBrushless);
-    private CANSparkMax motor2 = new CANSparkMax(Constants.kShooter2Id, MotorType.kBrushless);
-
+    //private CANSparkMax motor1 = new CANSparkMax(Constants.kShooter1Id, MotorType.kBrushless);
+    //private CANSparkMax motor2 = new CANSparkMax(Constants.kShooter2Id, MotorType.kBrushless);
+    private TalonSRX shooterMotor = new TalonSRX(Constants.kShooter1Id);
     //INPUTS ------------------------------------------------------------------>
     boolean shooterActive = false; 
 
@@ -24,20 +26,18 @@ public class Shooter extends SubsystemBase{
     public void shoot(boolean inShooterActive){
         shooterActive = inShooterActive;
         if (shooterActive){
-        motor1.set(Constants.kShooterDemand);
-        motor2.set(-Constants.kShooterDemand);
+            shooterMotor.set(ControlMode.PercentOutput, Constants.kShooterDemand);
+        
         }
         else{
-        motor1.set(0);
-        motor2.set(0);
+            shooterMotor.set(ControlMode.PercentOutput,0);
+        
         }
-        }
+    }
 
     //Funcion para poner salidas a SmartDashBoard 
-    public void FeederLogsOutput(){/*codigo para dar salidas a SmartDashBoard*/
+    public void ShooterLogsOutput(){/*codigo para dar salidas a SmartDashBoard*/
         SmartDashboard.putBoolean("Shooter Active", shooterActive);
-        SmartDashboard.putNumber("ShooterM1 Speed", motor1.get());
-        SmartDashboard.putNumber("ShooterM2 Speed", motor2.get());
     }
         
     @Override

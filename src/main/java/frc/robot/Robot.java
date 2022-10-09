@@ -30,7 +30,6 @@ public class Robot extends TimedRobot {
     
     mCompressor.enableDigital(); //habilita el compresor
     mCompressor.disable();
-    //SmartDashboard.putBoolean("Pressure Switch:", mCompressor.getPressureSwitchValue());
     mLogsOutput.MasterLosgsOutputs(); //Manda llmar la funcion de Logs
   }
 
@@ -75,8 +74,8 @@ public class Robot extends TimedRobot {
 
     //intake
     mIntake.takeIn( ControlBoard.getInstance().getIntake() ); //boton B
-    //mIntake.takeOut( ControlBoard.getInstance().getIntakeInverted()); //boton A
-
+    mIntake.takeOut( ControlBoard.getInstance().getIntakeInverted()); //boton A
+    
     //hopper
     mHopper.hopperAction(ControlBoard.getInstance().getHopperSpeed()); //diferencia triggers
 
