@@ -74,6 +74,14 @@ public class Drive extends SubsystemBase {
     mMotor4BackLeft.set(ControlMode.PercentOutput, final_left_back_demand);
   }
 
+  public void outMotoresAuto( double frontRightDemand, double backRightDemand, 
+    double frontLeftDemand, double backleftDemand ){
+      mMotor1FrontRight.set(ControlMode.PercentOutput, frontRightDemand);
+      mMotor2BackRight.set(ControlMode.PercentOutput, backRightDemand);
+      mMotor3FrontLeft.set(ControlMode.PercentOutput, frontLeftDemand);
+      mMotor4BackLeft.set(ControlMode.PercentOutput, backleftDemand);
+  }
+
   //Funcion para la rampa de velocidad que toma argumentos de velocidad actual y la velocidad que da el control
   private double speedTramp( double targetSpeed, double currentSpeed ){
     if( Math.abs( (Math.abs(targetSpeed) - Math.abs(currentSpeed) ) ) < Constants.kDriveRampDeltaSpeed) return targetSpeed;

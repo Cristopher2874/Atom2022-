@@ -5,6 +5,10 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Auto.Actions.GetTimeAction;
+import frc.robot.Auto.Actions.MoveForwardAction;
+import frc.robot.Auto.Actions.StopAction;
+import frc.robot.Auto.Modes.LineTimer;
 import frc.robot.controlboard.ControlBoard;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Hopper;
@@ -24,6 +28,12 @@ public class Robot extends TimedRobot {
     
   //Delcaracion del compresor      
     private final Compressor mCompressor = new Compressor(PneumaticsModuleType.CTREPCM);
+    
+  //Incializacion de acciones autonomo  
+    GetTimeAction mAutoTimer = new GetTimeAction();
+    MoveForwardAction mMoveForwardAction = new MoveForwardAction();
+    StopAction mStopAction = new StopAction();
+    LineTimer mLineTimerMode = new LineTimer();
 
   @Override
   public void robotInit() {
@@ -46,16 +56,17 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
+    mAutoTimer.autoRelativeTimeControl(); //inicializar el timeStap relativo a auto
   }
 
   @Override
   public void autonomousPeriodic() {
-    
+    mAutoTimer.autoAbsoluteTimeControl(); //inicializa el timeStap absoluto
+    if(mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer()<3){
+      mMoveForwardAction.finalMoveForwardACtion();
+    }
+    else mStopAction.finalStopAction();
+    //mLineTimerMode.finalLineTimer();
   }
 
   @Override

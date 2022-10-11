@@ -3,11 +3,11 @@ package frc.robot;
 public final class Constants {
     //Drive Subsistem
     public static final double kDriveRampDeltaSpeed = 0.1;
-    public static final double kDriveSensitivity = 0.8;
-    public static final int kDriveRightFrontId = 8;
-    public static final int kDriveLeftFrontId = 9;
-    public static final int kDriveRightBackId = 10;
-    public static final int kDriveLeftBackId = 11;
+    public static final double kDriveSensitivity = 0.6;
+    public static final int kDriveRightFrontId = 9;
+    public static final int kDriveLeftFrontId = 11;
+    public static final int kDriveRightBackId = 8;
+    public static final int kDriveLeftBackId = 10;
     
     //Control Board
     public static final int kDriverControlPort = 0;
