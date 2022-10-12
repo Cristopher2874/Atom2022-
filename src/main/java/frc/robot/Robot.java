@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     mAutoTimer.autoAbsoluteTimeControl(); //inicializa el timeStap absoluto
-    if(mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer()<3){
+    if(mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer()<2){
       mMoveForwardAction.finalMoveForwardACtion();
     }
     else mStopAction.finalStopAction();

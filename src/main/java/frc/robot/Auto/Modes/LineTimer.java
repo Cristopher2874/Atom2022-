@@ -14,7 +14,7 @@ public class LineTimer{
   public void finalLineTimer(){
     if(mGetTimeAction.getAbsoluteTimer()-mGetTimeAction.getRelativeTimer()<3){
         mForwardAction.finalMoveForwardACtion();
-    }
-    else mStopAction.finalStopAction();
+      }
+      else mStopAction.finalStopAction();
   }
 }

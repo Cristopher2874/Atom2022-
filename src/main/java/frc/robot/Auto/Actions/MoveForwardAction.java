@@ -6,6 +6,6 @@ public class MoveForwardAction{
   Drive mAutoDrive = new Drive();
   
   public void finalMoveForwardACtion(){
-    mAutoDrive.outMotoresAuto(0.6, 0.6, -0.6, -0.6);
+    mAutoDrive.outMotoresAuto(0.3, 0.3, -0.3, -0.3);
   }
 }
