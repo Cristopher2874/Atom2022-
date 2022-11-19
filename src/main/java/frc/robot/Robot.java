@@ -66,7 +66,6 @@ public class Robot extends TimedRobot {
       mMoveForwardAction.finalMoveForwardACtion();
     }
     else mStopAction.finalStopAction();
-    //mLineTimerMode.finalLineTimer();
   }
 
   @Override
