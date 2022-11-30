@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -8,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Auto.Actions.GetTimeAction;
 import frc.robot.Auto.Actions.MoveForwardAction;
 import frc.robot.Auto.Actions.StopAction;
+import frc.robot.Auto.Actions.TurnLeftAction;
+import frc.robot.Auto.Actions.TurnRightAction;
 import frc.robot.Auto.Modes.LineTimer;
 import frc.robot.controlboard.ControlBoard;
 import frc.robot.subsystems.Drive;
@@ -34,6 +38,8 @@ public class Robot extends TimedRobot {
     MoveForwardAction mMoveForwardAction = new MoveForwardAction();
     StopAction mStopAction = new StopAction();
     LineTimer mLineTimerMode = new LineTimer();
+    TurnLeftAction mTurnLeftAuto = new TurnLeftAction();
+    TurnRightAction mTurnRightAction = new TurnRightAction();
 
   @Override
   public void robotInit() {
@@ -62,7 +68,27 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     mAutoTimer.autoAbsoluteTimeControl(); //inicializa el timeStap absoluto
-    if(mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer()<2){
+
+    double difTime = mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer();
+    if(difTime<1.5){
+      mMoveForwardAction.finalMoveForwardACtion();
+    }
+    else if(difTime>1.5 && difTime<1.9){
+      mTurnRightAction.finalTurnRightACtion();
+    }
+    else if(difTime>1.92 && difTime<5){
+      mMoveForwardAction.finalMoveForwardACtion();
+    }
+    else if(difTime>5 && difTime<5.4){
+      mTurnLeftAuto.finalTurnLeftACtion();
+    }
+    else if(difTime>5.4 && difTime<8.5){
+      mMoveForwardAction.finalMoveForwardACtion();
+    }
+    else if(difTime>8.5 && difTime<8.9){
+      mTurnLeftAuto.finalTurnLeftACtion();
+    }
+    else if(difTime>8.9 && difTime<12){
       mMoveForwardAction.finalMoveForwardACtion();
     }
     else mStopAction.finalStopAction();
