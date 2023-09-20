@@ -34,7 +34,12 @@ public class Hanger extends SubsystemBase {
     hangerMotor.set(hopperSpeed);
   }
   //Funcion para poner salidas a SmartDashBoard 
-public void FeederLogsOutput(){/*codigo para dar salidas a SmartDashBoard*/}
+  public void FeederLogsOutput(){/*codigo para dar salidas a SmartDashBoard*/}
+
+  public double getHangerEncoder(){
+    hopperPosition = relativeHopperEncoder.getPosition();
+    return hopperPosition;
+  }
     
   @Override
   public void periodic() {

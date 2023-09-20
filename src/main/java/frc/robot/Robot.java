@@ -1,7 +1,5 @@
 package frc.robot;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
-
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -12,6 +10,7 @@ import frc.robot.Auto.Actions.MoveForwardAction;
 import frc.robot.Auto.Actions.StopAction;
 import frc.robot.Auto.Actions.TurnLeftAction;
 import frc.robot.Auto.Actions.TurnRightAction;
+import frc.robot.Auto.Modes.HangerUp;
 import frc.robot.Auto.Modes.LineTimer;
 import frc.robot.controlboard.ControlBoard;
 import frc.robot.subsystems.Drive;
@@ -40,10 +39,10 @@ public class Robot extends TimedRobot {
     LineTimer mLineTimerMode = new LineTimer();
     TurnLeftAction mTurnLeftAuto = new TurnLeftAction();
     TurnRightAction mTurnRightAction = new TurnRightAction();
+    HangerUp mHangerUpMode = new HangerUp();
 
   @Override
   public void robotInit() {
-    
     mCompressor.enableDigital(); //habilita el compresor
     mCompressor.disable();
     mLogsOutput.MasterLosgsOutputs(); //Manda llmar la funcion de Logs
@@ -68,7 +67,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     mAutoTimer.autoAbsoluteTimeControl(); //inicializa el timeStap absoluto
-
+    //mHangerUpMode.finalHangerUp();
     double difTime = mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer();
     if(difTime<1.5){
       mMoveForwardAction.finalMoveForwardACtion();

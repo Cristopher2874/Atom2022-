@@ -2,6 +2,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,6 +16,8 @@ public class Drive extends SubsystemBase {
   public final TalonSRX mMotor2BackRight = new TalonSRX(Constants.kDriveRightBackId);
   public final TalonSRX mMotor3FrontLeft = new TalonSRX(Constants.kDriveLeftFrontId);
   public final TalonSRX mMotor4BackLeft = new TalonSRX(Constants.kDriveLeftBackId);
+  private final CANSparkMax exampleMotor = new CANSparkMax(20, MotorType.kBrushless);
+  private RelativeEncoder relativeExampEncoder; //declaracion del encoder para saber la posicion del motor
 
   //INPUTS ------------------------------------------------------------------>
   double xSpeed = 0;
@@ -80,6 +85,10 @@ public class Drive extends SubsystemBase {
       mMotor2BackRight.set(ControlMode.PercentOutput, backRightDemand);
       mMotor3FrontLeft.set(ControlMode.PercentOutput, frontLeftDemand);
       mMotor4BackLeft.set(ControlMode.PercentOutput, backleftDemand);
+  }
+
+  public double getDriveEncoder(){
+    return relativeExampEncoder.getPosition();
   }
 
   //Funcion para la rampa de velocidad que toma argumentos de velocidad actual y la velocidad que da el control
