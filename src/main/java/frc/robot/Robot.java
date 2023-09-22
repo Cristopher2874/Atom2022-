@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
     Intake mIntake = new Intake();
     Hopper mHopper = new Hopper();
     Shooter mShooter = new Shooter();
-    LogsOutput mLogsOutput = new LogsOutput(); 
+    LogsOutput mLogsOutput = new LogsOutput();
     
   //Delcaracion del compresor      
     private final Compressor mCompressor = new Compressor(PneumaticsModuleType.CTREPCM);
@@ -62,14 +62,15 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     mAutoTimer.autoRelativeTimeControl(); //inicializar el timeStap relativo a auto
+    mDrive.getOdometry();
   }
 
   @Override
   public void autonomousPeriodic() {
     mAutoTimer.autoAbsoluteTimeControl(); //inicializa el timeStap absoluto
-    //mHangerUpMode.finalHangerUp();
+    mHangerUpMode.finalHangerUp();
     double difTime = mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer();
-    if(difTime<1.5){
+    /*if(difTime<1.5){
       mMoveForwardAction.finalMoveForwardACtion();
     }
     else if(difTime>1.5 && difTime<1.9){
@@ -90,7 +91,7 @@ public class Robot extends TimedRobot {
     else if(difTime>8.9 && difTime<12){
       mMoveForwardAction.finalMoveForwardACtion();
     }
-    else mStopAction.finalStopAction();
+    else mStopAction.finalStopAction();*/
   }
 
   @Override

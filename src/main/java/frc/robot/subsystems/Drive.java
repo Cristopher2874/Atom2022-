@@ -13,11 +13,13 @@ import frc.robot.Constants;
 public class Drive extends SubsystemBase {
   //Hardware ----------------------------------------------------------------->
   public final TalonSRX mMotor1FrontRight = new TalonSRX(Constants.kDriveRightFrontId); //declaracion del talon con constante
+  //SRXMagEncoder Talon, RoborRio
   public final TalonSRX mMotor2BackRight = new TalonSRX(Constants.kDriveRightBackId);
   public final TalonSRX mMotor3FrontLeft = new TalonSRX(Constants.kDriveLeftFrontId);
   public final TalonSRX mMotor4BackLeft = new TalonSRX(Constants.kDriveLeftBackId);
   private final CANSparkMax exampleMotor = new CANSparkMax(20, MotorType.kBrushless);
-  private RelativeEncoder relativeExampEncoder; //declaracion del encoder para saber la posicion del motor
+  private RelativeEncoder relativeExampEncoder; //donde se prenden es el cero
+  ; //declaracion del encoder para saber la posicion del motor
 
   //INPUTS ------------------------------------------------------------------>
   double xSpeed = 0;
@@ -88,7 +90,13 @@ public class Drive extends SubsystemBase {
   }
 
   public double getDriveEncoder(){
-    return relativeExampEncoder.getPosition();
+    double encoder =  relativeExampEncoder.getPosition();
+    double metros = encoder/1000;
+    return metros;
+  }
+
+  public void getOdometry(){
+    //Código
   }
 
   //Funcion para la rampa de velocidad que toma argumentos de velocidad actual y la velocidad que da el control

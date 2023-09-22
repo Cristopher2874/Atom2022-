@@ -10,7 +10,7 @@ public class moveHangerAction{
         if(posicion > (position + 50) || posicion > (position - 50)){
             mHanger.hopperAction(-speed);
         }else if(posicion < (position + 50) || posicion < (position - 50)){
-            mHanger.hopperAction(-speed);
+            mHanger.hopperAction(speed);
         }else{
             mHanger.hopperAction(0);
         }

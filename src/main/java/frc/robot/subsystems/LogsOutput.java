@@ -1,9 +1,11 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LogsOutput extends SubsystemBase {
-  //Drive mDrive = new Drive();
+  Drive mDrive = new Drive();
   //Intake mIntake = new Intake();  
   Shooter mShooter = new Shooter();
   public LogsOutput() {} //constructor del subsistema
@@ -13,8 +15,9 @@ public class LogsOutput extends SubsystemBase {
   //funcion principal para cada subsistema
   
   public void MasterLosgsOutputs(){
-    //mDrive.DriveLogsOutput(); //Llamar las funciones de output de cada subsistema
+    mDrive.DriveLogsOutput(); //Llamar las funciones de output de cada subsistema
     mShooter.ShooterLogsOutput();
+    //SendableChooser //opciones elegibles +HangerUp +ChargingStation
   }
     
   @Override

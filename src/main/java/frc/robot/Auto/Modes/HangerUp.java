@@ -15,14 +15,15 @@ public class HangerUp{
   StopAction mStopAction = new StopAction();
   TurnLeftAction mTurnLeft = new TurnLeftAction();
   double drivePosition = 0;
-    
+    //avanzar
+    //abriar
   public void finalHangerUp(){
     double drivePosition = mAutoDrive.getDriveEncoder();
     mHangerAction.getMoveHanger(3000,0.5);
     if(drivePosition < 10){
-      mForwardAction.finalMoveForwardACtion();
-    }else if(drivePosition >= 10){
       mTurnLeft.finalTurnLeftACtion();
+    }else if(drivePosition >= 10){
+      mForwardAction.finalMoveForwardACtion();
     }else if(drivePosition >= 15){
       mForwardAction.finalMoveForwardACtion();
     }else if(drivePosition > 25){
